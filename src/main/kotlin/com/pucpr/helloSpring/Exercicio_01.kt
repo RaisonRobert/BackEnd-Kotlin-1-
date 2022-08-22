@@ -29,14 +29,14 @@ class Exercicio_01 {
         val firstDate: Date = date.parse(inicio)
         val secondDate: Date = date.parse(fim)
         val dataformatada = secondDate.time - firstDate.time
-
         val time = TimeUnit.DAYS
         val dias = time.convert(dataformatada, TimeUnit.MILLISECONDS)
-
-        val semana = (dias / 7).toInt()
-        val mes = (dias / (365 / 12)).toInt()
-
-        return "Diferença de Dias: $dias Semanas: $semana Meses: $mes"
+        if(dias>0) {
+            val semana = (dias / 7).toInt()
+            val mes = (dias / (365 / 12)).toInt()
+            return "Diferença de Dias: $dias Semanas: $semana Meses: $mes"
+        }else
+            return "error: data de Inicio maior que data de fim"
     }
 }
 //Exercico1:
