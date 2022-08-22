@@ -2,8 +2,10 @@ package com.pucpr.helloSpring
 
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
+import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 // query params
 @RestController
@@ -22,57 +24,26 @@ class Exercicio_01 {
     }
 
     private fun date(inicio: String, fim: String): String {
-        val date = SimpleDateFormat("dd/MM/yyyy")
+        val date = SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("pt-br"))
 
         val firstDate: Date = date.parse(inicio)
         val secondDate: Date = date.parse(fim)
+        val dataformatada = secondDate.time - firstDate.time
 
-        val cmp = firstDate.compareTo(secondDate)
-        when {
-            cmp > 0 -> {
-                System.out.printf("%s is after %s", inicio, fim)
-            }
-            cmp < 0 -> {
-                System.out.printf("%s is before %s", inicio, fim)
-            }
-            else -> {
-                print("Both dates are equal")
-            }
-        }
+        val time = TimeUnit.DAYS
+        val dias = time.convert(dataformatada, TimeUnit.MILLISECONDS)
 
-//        val dias:Int
-//        val semanas:Int
-//        val anos:Int
-//        val diaInicio = inicio.nextToken("/").toInt()
-//        val mesInicio = inicio.nextToken("/").toInt()
-//        val anoInicio = inicio.nextToken("/").toInt()
-//        val diaFim = fim.nextToken("/").toInt()
-//        val mesFim = fim.nextToken("/").toInt()
-//        val anoFim= fim.nextToken("/").toInt()
-//        if (anoInicio>anoFim){
-//            return "error: data de inicio maior que a data final"
-//        }else {
-//            if (anoInicio==anoFim)
-//            {
-//                anos = 0
-//            }else{
-//                anos = anoFim - anoInicio
-//            }
-//        }
-        return ""
+        val semana = (dias / 7).toInt()
+        val mes = (dias / (365 / 12)).toInt()
+
+        return "Diferença de Dias: $dias Semanas: $semana Meses: $mes"
     }
-
+}
 //Exercico1:
 //
 //Faça um form/serviço onde o usuário possa colocar duas datas (data inicio e data fim) e o servidor retorne;
-//
-//
-//
 //A diferença de dias entre as datas;
 //
 //A diferença de semana entre as datas;
 //
 //A diferença de messes entre as datas;
-
-
-}
